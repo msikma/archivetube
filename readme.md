@@ -19,6 +19,15 @@ After setting up a user, you'll need to create a database:
 create database archivetube character set utf8mb4 collate utf8mb4_unicode_ci;
 ```
 
+To connect the app to your database, you'll need to make a `.env` file in the root directory containing the following values (with your own username and password):
+
+```
+MYSQL_HOST=localhost
+MYSQL_USER=mysqluser
+MYSQL_PASSWORD=mysqlpass
+MYSQL_DATABASE=archivetube
+```
+
 Now you can begin development simply by typing `now dev`. The app will open on `localhost:3000`.
 
 ### Project structure
