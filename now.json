@@ -1,0 +1,15 @@
+{
+  "version": 2,
+  "name": "archivetube",
+  "alias": "archivetube.now.sh",
+  "builds": [
+    { "src": "api/**/*.js", "use": "@now/node" },
+    { "src": "next.config.js", "use": "@now/next" }
+  ],
+  "env": {
+    "MYSQL_HOST": "@mysql_host",
+    "MYSQL_USER": "@mysql_user",
+    "MYSQL_PASSWORD": "@mysql_password",
+    "MYSQL_DATABASE": "@mysql_database"
+  }
+}

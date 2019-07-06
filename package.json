@@ -1,0 +1,30 @@
+{
+  "name": "archivetube",
+  "version": "1.0.0",
+  "main": "index.js",
+  "description": "A Youtube clone that uses the Internet Archive as storage backend",
+  "keywords": [
+    "video-processing",
+    "video-streaming",
+    "webapp",
+    "zeit-now",
+    "nodejs",
+    "mysql"
+  ],
+  "author": "Michiel Sikma <michiel@sikma.org>",
+  "homepage": "https://github.com/msikma/archivetube",
+  "repository": {
+    "type": "git",
+    "url": "git@github.com:msikma/archivetube.git"
+  },
+  "private": true,
+  "license": "MIT",
+  "dependencies": {
+    "isomorphic-unfetch": "^3.0.0",
+    "next": "^8.0.4",
+    "react": "^16.8.6",
+    "react-dom": "^16.8.6",
+    "serverless-mysql": "^1.2.1",
+    "sql-template-strings": "^2.2.2"
+  }
+}
