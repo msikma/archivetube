@@ -34,14 +34,12 @@ Now you can begin development simply by typing `now dev`. The app will open on `
 
 An overview of the file structure:
 
-* `api/` - abstractions for dealing with the database
-* `lib/` - non-HTML related code
+* `api/` - endpoints that interface with the database and return JSON
+* `lib/` - various libraries and utilities
 * `components/` - building blocks used in the pages
 * `migrations/` - incremental SQL files used to ensure database schema compatibility
 * `pages/` - components each representing a specific URL
-* `static/` - all static files (stylesheets, images, etc.)
-
-Only `components` and `pages` are transpiled, meaning ES2015 `import` syntax can be used only there.
+* `static/` - static files (stylesheets, images, etc.)
 
 ### Copyright
 
