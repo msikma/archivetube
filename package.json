@@ -17,6 +17,9 @@
     "type": "git",
     "url": "git@github.com:msikma/archivetube.git"
   },
+  "engines" : {
+    "node" : ">=10.0.0"
+  },
   "private": true,
   "license": "MIT",
   "dependencies": {
