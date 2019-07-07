@@ -1,11 +1,11 @@
 // ArchiveTube <https://github.com/msikma/archivetube>
 // © MIT license
 
-const db = require('../../lib/db')
+import { query } from '../../lib/db'
 const sql = require('sql-template-strings')
 
 module.exports = async (req, res) => {
-  const [profile] = await db.query(sql`
+  const [profile] = await query(sql`
     SELECT *
     FROM profiles
     WHERE id = ${req.query.id}

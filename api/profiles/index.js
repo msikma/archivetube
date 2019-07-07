@@ -1,19 +1,19 @@
 // ArchiveTube <https://github.com/msikma/archivetube>
 // © MIT license
 
-const db = require('../../lib/db')
+import { query } from '../../lib/db'
 const sql = require('sql-template-strings')
 
-module.exports = async (req, res) => {
+export default async (req, res) => {
   let page = parseInt(req.query.page) || 1
   const limit = parseInt(req.query.limit) || 9
   if (page < 1) page = 1
-  const profiles = await db.query(sql`
+  const profiles = await query(sql`
     SELECT *
     FROM profiles
     LIMIT ${(page - 1) * limit}, ${limit}
   `)
-  const count = await db.query(`
+  const count = await query(`
     SELECT COUNT(*)
     AS profilesCount
     FROM profiles
