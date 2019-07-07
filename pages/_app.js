@@ -5,6 +5,9 @@ import App, { Container } from 'next/app'
 import Head from 'next/head'
 import React from 'react'
 
+import 'normalize.css'
+import '../static/style.css'
+
 export default class MyApp extends App {
   static async getInitialProps({ Component, ctx }) {
     let pageProps = {}

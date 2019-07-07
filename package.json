@@ -17,14 +17,16 @@
     "type": "git",
     "url": "git@github.com:msikma/archivetube.git"
   },
-  "engines" : {
-    "node" : ">=10.0.0"
+  "engines": {
+    "node": ">=10.0.0"
   },
   "private": true,
   "license": "MIT",
   "dependencies": {
+    "@zeit/next-css": "^1.0.1",
     "isomorphic-unfetch": "^3.0.0",
     "next": "^8.0.4",
+    "normalize.css": "^8.0.1",
     "react": "^16.8.6",
     "react-dom": "^16.8.6",
     "serverless-mysql": "^1.2.1",

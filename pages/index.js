@@ -14,9 +14,11 @@ export default class IndexPage extends React.Component {
   }
 
   render() {
+    const { profiles } = this.props
     return (
       <LayoutMain>
         <h1>Test Application index page</h1>
+        <p>Profiles: { profiles.length }</p>
       </LayoutMain>
     )
   }
