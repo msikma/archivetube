@@ -16,7 +16,7 @@ brew install mariadb
 After setting up a user, you'll need to create a database:
 
 ```sql
-create database archivetube character set utf8mb4 collate utf8mb4_unicode_ci;
+create database `archivetube` character set utf8mb4 collate utf8mb4_unicode_ci;
 ```
 
 To connect the app to your database, you'll need to make a `.env` file in the root directory containing the following values (with your own username and password):
