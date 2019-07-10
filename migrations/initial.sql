@@ -34,15 +34,6 @@ CREATE TABLE `activity_logs` (
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Dumping data for table `activity_logs`
---
-
-LOCK TABLES `activity_logs` WRITE;
-/*!40000 ALTER TABLE `activity_logs` DISABLE KEYS */;
-/*!40000 ALTER TABLE `activity_logs` ENABLE KEYS */;
-UNLOCK TABLES;
-
---
 -- Table structure for table `channels`
 --
 
@@ -83,15 +74,6 @@ CREATE TABLE `channels` (
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Dumping data for table `channels`
---
-
-LOCK TABLES `channels` WRITE;
-/*!40000 ALTER TABLE `channels` DISABLE KEYS */;
-/*!40000 ALTER TABLE `channels` ENABLE KEYS */;
-UNLOCK TABLES;
-
---
 -- Table structure for table `comments`
 --
 
@@ -118,15 +100,6 @@ CREATE TABLE `comments` (
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Dumping data for table `comments`
---
-
-LOCK TABLES `comments` WRITE;
-/*!40000 ALTER TABLE `comments` DISABLE KEYS */;
-/*!40000 ALTER TABLE `comments` ENABLE KEYS */;
-UNLOCK TABLES;
-
---
 -- Table structure for table `favorite_video_groups`
 --
 
@@ -141,15 +114,6 @@ CREATE TABLE `favorite_video_groups` (
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Dumping data for table `favorite_video_groups`
---
-
-LOCK TABLES `favorite_video_groups` WRITE;
-/*!40000 ALTER TABLE `favorite_video_groups` DISABLE KEYS */;
-/*!40000 ALTER TABLE `favorite_video_groups` ENABLE KEYS */;
-UNLOCK TABLES;
-
---
 -- Table structure for table `favorite_videos`
 --
 
@@ -162,15 +126,6 @@ CREATE TABLE `favorite_videos` (
   PRIMARY KEY (`user_id`,`video_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
-
---
--- Dumping data for table `favorite_videos`
---
-
-LOCK TABLES `favorite_videos` WRITE;
-/*!40000 ALTER TABLE `favorite_videos` DISABLE KEYS */;
-/*!40000 ALTER TABLE `favorite_videos` ENABLE KEYS */;
-UNLOCK TABLES;
 
 --
 -- Table structure for table `media_files`
@@ -210,15 +165,6 @@ CREATE TABLE `media_files` (
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Dumping data for table `media_files`
---
-
-LOCK TABLES `media_files` WRITE;
-/*!40000 ALTER TABLE `media_files` DISABLE KEYS */;
-/*!40000 ALTER TABLE `media_files` ENABLE KEYS */;
-UNLOCK TABLES;
-
---
 -- Table structure for table `profiles`
 --
 
@@ -236,6 +182,7 @@ CREATE TABLE `profiles` (
   `homepage` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `country_iso_code` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `country` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `settings_json` text COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `last_activity_utc` datetime DEFAULT NULL,
   `avatar_url` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `avatar_width` smallint(5) DEFAULT NULL,
@@ -247,15 +194,6 @@ CREATE TABLE `profiles` (
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
-
---
--- Dumping data for table `profiles`
---
-
-LOCK TABLES `profiles` WRITE;
-/*!40000 ALTER TABLE `profiles` DISABLE KEYS */;
-/*!40000 ALTER TABLE `profiles` ENABLE KEYS */;
-UNLOCK TABLES;
 
 --
 -- Table structure for table `subscriptions`
@@ -272,15 +210,6 @@ CREATE TABLE `subscriptions` (
   PRIMARY KEY (`user_id_parent`,`user_id_child`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
-
---
--- Dumping data for table `subscriptions`
---
-
-LOCK TABLES `subscriptions` WRITE;
-/*!40000 ALTER TABLE `subscriptions` DISABLE KEYS */;
-/*!40000 ALTER TABLE `subscriptions` ENABLE KEYS */;
-UNLOCK TABLES;
 
 --
 -- Table structure for table `users`
@@ -300,7 +229,6 @@ CREATE TABLE `users` (
   `birthdate_utc` date DEFAULT NULL,
   `created_utc` datetime DEFAULT NULL,
   `banned_until_utc` datetime DEFAULT NULL,
-  `settings_json` text COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `ip_lock` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `2fa_key` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `is_temp_banned` tinyint(1) NOT NULL DEFAULT 0,
@@ -310,15 +238,6 @@ CREATE TABLE `users` (
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
-
---
--- Dumping data for table `users`
---
-
-LOCK TABLES `users` WRITE;
-/*!40000 ALTER TABLE `users` DISABLE KEYS */;
-/*!40000 ALTER TABLE `users` ENABLE KEYS */;
-UNLOCK TABLES;
 
 --
 -- Table structure for table `video_groups`
@@ -344,15 +263,6 @@ CREATE TABLE `video_groups` (
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
-
---
--- Dumping data for table `video_groups`
---
-
-LOCK TABLES `video_groups` WRITE;
-/*!40000 ALTER TABLE `video_groups` DISABLE KEYS */;
-/*!40000 ALTER TABLE `video_groups` ENABLE KEYS */;
-UNLOCK TABLES;
 
 --
 -- Table structure for table `videos`
@@ -387,15 +297,6 @@ CREATE TABLE `videos` (
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
-
---
--- Dumping data for table `videos`
---
-
-LOCK TABLES `videos` WRITE;
-/*!40000 ALTER TABLE `videos` DISABLE KEYS */;
-/*!40000 ALTER TABLE `videos` ENABLE KEYS */;
-UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 
 /*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
@@ -406,4 +307,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2019-07-11  0:12:45
+-- Dump completed on 2019-07-11  0:48:54
