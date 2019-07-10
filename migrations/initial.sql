@@ -69,6 +69,7 @@ CREATE TABLE `channels` (
   `comments` int(11) unsigned NOT NULL DEFAULT 0,
   `last_comment_utc` datetime DEFAULT NULL,
   `banned_until_utc` datetime DEFAULT NULL,
+  `settings_json` text COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `layout_json` text COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `is_main_channel` tinyint(1) NOT NULL DEFAULT 0,
   `is_commentable` tinyint(1) NOT NULL DEFAULT 1,
@@ -266,6 +267,8 @@ DROP TABLE IF EXISTS `subscriptions`;
 CREATE TABLE `subscriptions` (
   `user_id_parent` bigint(11) unsigned NOT NULL,
   `user_id_child` bigint(11) unsigned NOT NULL,
+  `is_private` tinyint(1) NOT NULL DEFAULT 0,
+  `is_hidden_from_feed` tinyint(1) NOT NULL DEFAULT 0,
   PRIMARY KEY (`user_id_parent`,`user_id_child`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
@@ -297,6 +300,7 @@ CREATE TABLE `users` (
   `birthdate_utc` date DEFAULT NULL,
   `created_utc` datetime DEFAULT NULL,
   `banned_until_utc` datetime DEFAULT NULL,
+  `settings_json` text COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `ip_lock` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `2fa_key` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `is_temp_banned` tinyint(1) NOT NULL DEFAULT 0,
@@ -371,6 +375,7 @@ CREATE TABLE `videos` (
   `publication_utc` datetime DEFAULT NULL,
   `comments` int(11) NOT NULL DEFAULT 0,
   `last_comment_utc` datetime DEFAULT NULL,
+  `settings_json` text COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `visibility` enum('public','unlisted','private') COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT 'public',
   `classification` enum('sfw','nsfw') COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT 'sfw',
   `ia_identifier` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
@@ -401,4 +406,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2019-07-11  0:03:53
+-- Dump completed on 2019-07-11  0:12:45
