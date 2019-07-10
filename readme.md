@@ -6,17 +6,25 @@ This app is a Youtube clone designed to use the [Internet Archive](https://archi
 
 ### Development
 
-The two prerequisites for this project are **[`now`](https://zeit.co/download)** and **MySQL (or MariaDB)**. The quickest way to install both is via **[Yarn](https://yarnpkg.com/)** and **[Brew](https://brew.sh/)**:
+The two prerequisites for this project are **[`now`](https://zeit.co/download)** and **MySQL (or MariaDB)**.
+
+The quickest way to install both is via **[Yarn](https://yarnpkg.com/)** and your system's package manager (using **[Brew](https://brew.sh/)** on OSX as example):
 
 ```sh
 yarn global add now
 brew install mariadb
 ```
 
-After setting up a user, you'll need to create a database:
+After installing the database and creating a user, you'll need to create a database:
 
 ```sql
 create database `archivetube` character set utf8mb4 collate utf8mb4_unicode_ci;
+```
+
+Followed by running the migrations:
+
+```shell
+TODO
 ```
 
 To connect the app to your database, you'll need to make a `.env` file in the root directory containing the following values (with your own username and password):
