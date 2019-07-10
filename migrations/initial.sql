@@ -218,38 +218,6 @@ LOCK TABLES `media_files` WRITE;
 UNLOCK TABLES;
 
 --
--- Table structure for table `playlists`
---
-
-DROP TABLE IF EXISTS `playlists`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `playlists` (
-  `id` bigint(11) unsigned NOT NULL AUTO_INCREMENT,
-  `user_id` bigint(11) unsigned DEFAULT NULL,
-  `title` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `description` text COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `description_format` enum('txt','md','html') COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT 'txt',
-  `identifier` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `creator` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `language` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `publication_utc` datetime DEFAULT NULL,
-  `visibility` enum('public','unlisted','private') COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT 'public',
-  `is_created_by_bot` tinyint(1) NOT NULL DEFAULT 0,
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
-/*!40101 SET character_set_client = @saved_cs_client */;
-
---
--- Dumping data for table `playlists`
---
-
-LOCK TABLES `playlists` WRITE;
-/*!40000 ALTER TABLE `playlists` DISABLE KEYS */;
-/*!40000 ALTER TABLE `playlists` ENABLE KEYS */;
-UNLOCK TABLES;
-
---
 -- Table structure for table `profiles`
 --
 
@@ -367,6 +335,7 @@ CREATE TABLE `video_groups` (
   `publication_utc` datetime DEFAULT NULL,
   `visibility` enum('public','unlisted','private') COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT 'public',
   `is_created_by_bot` tinyint(1) NOT NULL DEFAULT 0,
+  `is_playlist` tinyint(1) NOT NULL DEFAULT 0,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
@@ -429,4 +398,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2019-07-10  1:15:03
+-- Dump completed on 2019-07-10 23:49:56
