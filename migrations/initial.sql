@@ -257,13 +257,13 @@ LOCK TABLES `profiles` WRITE;
 UNLOCK TABLES;
 
 --
--- Table structure for table `subscribers`
+-- Table structure for table `subscriptions`
 --
 
-DROP TABLE IF EXISTS `subscribers`;
+DROP TABLE IF EXISTS `subscriptions`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `subscribers` (
+CREATE TABLE `subscriptions` (
   `user_id_parent` bigint(11) unsigned NOT NULL,
   `user_id_child` bigint(11) unsigned NOT NULL,
   PRIMARY KEY (`user_id_parent`,`user_id_child`)
@@ -271,12 +271,12 @@ CREATE TABLE `subscribers` (
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Dumping data for table `subscribers`
+-- Dumping data for table `subscriptions`
 --
 
-LOCK TABLES `subscribers` WRITE;
-/*!40000 ALTER TABLE `subscribers` DISABLE KEYS */;
-/*!40000 ALTER TABLE `subscribers` ENABLE KEYS */;
+LOCK TABLES `subscriptions` WRITE;
+/*!40000 ALTER TABLE `subscriptions` DISABLE KEYS */;
+/*!40000 ALTER TABLE `subscriptions` ENABLE KEYS */;
 UNLOCK TABLES;
 
 --
@@ -336,6 +336,7 @@ CREATE TABLE `video_groups` (
   `visibility` enum('public','unlisted','private') COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT 'public',
   `is_created_by_bot` tinyint(1) NOT NULL DEFAULT 0,
   `is_playlist` tinyint(1) NOT NULL DEFAULT 0,
+  `is_listed_on_home` tinyint(1) NOT NULL DEFAULT 0,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
@@ -398,4 +399,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2019-07-10 23:49:56
+-- Dump completed on 2019-07-10 23:56:48
