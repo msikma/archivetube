@@ -10,7 +10,7 @@ import { apiReq } from '../lib/req'
 
 export default class IndexPage extends React.Component {
   static async getInitialProps({ req, query }) {
-    return await apiReq(req, 'users', { page: query.page || 1, limit: query.limit || 9 })
+    return await apiReq(req, 'users.js', { page: query.page || 1, limit: query.limit || 9 })
   }
 
   render() {
