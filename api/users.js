@@ -1,12 +1,11 @@
 // ArchiveTube <https://github.com/msikma/archivetube>
 // © MIT license
 
-const runQuery = require('../lib/db')
-const sql = require('sql-template-strings')
+import { runQuery } from '../lib/db'
+import sql from 'sql-template-strings'
 
-module.exports = async (req, res) => {
+export default async function(req, res) {
   const { query } = req
-  console.log('a')
   const page = Math.max(query.page, 1)
   const limit = Math.min(query.limit, 20)
   const users = await runQuery(sql`
@@ -21,7 +20,5 @@ module.exports = async (req, res) => {
   `)
   const { userCount } = count[0] || {}
   const pageCount = Math.ceil(userCount / limit)
-  console.log('---')
-  console.log({ users, page, limit, userCount, pageCount })
-  res.status(200).json({ a: 'b' })
+  res.status(200).json({ users, page, limit, userCount, pageCount })
 }
