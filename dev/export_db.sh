@@ -13,7 +13,7 @@ script_dir=$(dirname "$(realpath $0)")
 migration=$script_dir"/../migrations/initial.sql"
 
 # Dump database to the migration file.
-mysqldump -uroot -proot archivetube > $migration
+mysqldump -uroot -proot --no-data archivetube | gsed 's/ AUTO_INCREMENT=[0-9]*\b//g' > $migration
 
 # List tables just to confirm everything worked.
 echo 'Done. Listing tables:'
