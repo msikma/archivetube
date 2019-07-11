@@ -10,15 +10,17 @@ import { apiReq } from '../lib/req'
 
 export default class IndexPage extends React.Component {
   static async getInitialProps({ req, query }) {
-    return await apiReq(req, 'profiles', { page: query.page || 1, limit: query.limit || 9 })
+    return await apiReq(req, 'users', { page: query.page || 1, limit: query.limit || 9 })
   }
 
   render() {
-    const { profiles } = this.props
+    const { users, userCount, page, limit, pageCount } = this.props
+    console.log(this.props);
     return (
       <LayoutMain>
         <h1>Test Application index page</h1>
-        <p>Profiles: { profiles.length }</p>
+        <p>Count: { userCount }</p>
+        <p>Page: { page }/{ pageCount }, { limit } per page</p>
       </LayoutMain>
     )
   }
