@@ -1,8 +1,8 @@
--- MariaDB dump 10.17  Distrib 10.4.6-MariaDB, for osx10.14 (x86_64)
+-- MariaDB dump 10.17  Distrib 10.4.6-MariaDB, for osx10.13 (x86_64)
 --
 -- Host: localhost    Database: archivetube
 -- ------------------------------------------------------
--- Server version	10.3.15-MariaDB
+-- Server version	10.4.6-MariaDB
 
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
 /*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
@@ -24,12 +24,19 @@ DROP TABLE IF EXISTS `activity_logs`;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `activity_logs` (
   `id` bigint(11) unsigned NOT NULL AUTO_INCREMENT,
-  `code` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `namespace` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `code` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `time_utc` datetime DEFAULT NULL,
-  `entity` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `entity_id` bigint(11) unsigned DEFAULT NULL,
-  PRIMARY KEY (`id`)
+  `user_id_parent` bigint(11) unsigned DEFAULT NULL,
+  `user_id_child` bigint(11) unsigned DEFAULT NULL,
+  `video_group_id` bigint(11) unsigned DEFAULT NULL,
+  `video_id` bigint(11) unsigned DEFAULT NULL,
+  `channel_id` bigint(11) unsigned DEFAULT NULL,
+  `comment_id` bigint(11) unsigned DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  KEY `namespace` (`namespace`,`code`),
+  KEY `time_utc` (`time_utc`),
+  KEY `user_id_parent` (`user_id_parent`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -69,7 +76,18 @@ CREATE TABLE `channels` (
   `is_retired` tinyint(1) NOT NULL DEFAULT 0,
   `is_locked` tinyint(1) NOT NULL DEFAULT 0,
   `is_closed` tinyint(1) NOT NULL DEFAULT 0,
-  PRIMARY KEY (`id`)
+  PRIMARY KEY (`id`),
+  KEY `user_id` (`user_id`),
+  KEY `subscribers` (`subscribers`),
+  KEY `created_utc` (`created_utc`),
+  KEY `latest_activity_utc` (`latest_activity_utc`),
+  KEY `visibility` (`visibility`),
+  KEY `country_iso_code` (`country_iso_code`),
+  KEY `country` (`country`),
+  KEY `channel_views` (`channel_views`),
+  KEY `videos` (`videos`),
+  KEY `comments` (`comments`),
+  KEY `last_comment_utc` (`last_comment_utc`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -95,7 +113,12 @@ CREATE TABLE `comments` (
   `is_hidden` tinyint(1) NOT NULL DEFAULT 0,
   `is_deleted` tinyint(1) NOT NULL DEFAULT 0,
   `is_created_by_bot` tinyint(1) NOT NULL DEFAULT 0,
-  PRIMARY KEY (`id`)
+  PRIMARY KEY (`id`),
+  KEY `user_id` (`user_id`),
+  KEY `language` (`language`),
+  KEY `creation_utc` (`creation_utc`),
+  KEY `last_edit_utc` (`last_edit_utc`),
+  KEY `is_spam_flagged` (`is_spam_flagged`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -160,7 +183,15 @@ CREATE TABLE `media_files` (
   `track_number` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `disc_number` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `genre` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  PRIMARY KEY (`id`)
+  PRIMARY KEY (`id`),
+  KEY `video_id` (`video_id`),
+  KEY `created_utc` (`created_utc`),
+  KEY `added_utc` (`added_utc`),
+  KEY `type` (`type`),
+  KEY `quality` (`quality`),
+  KEY `resolution_width` (`resolution_width`),
+  KEY `resolution_height` (`resolution_height`),
+  KEY `framerate` (`framerate`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -180,6 +211,7 @@ CREATE TABLE `profiles` (
   `bio` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `bio_format` enum('txt','md','html') COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT 'txt',
   `homepage` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `birthdate_utc` date DEFAULT NULL,
   `country_iso_code` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `country` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `settings_json` text COLLATE utf8mb4_unicode_ci DEFAULT NULL,
@@ -191,7 +223,14 @@ CREATE TABLE `profiles` (
   `is_private` tinyint(1) NOT NULL DEFAULT 0,
   `is_bot` tinyint(1) NOT NULL DEFAULT 0,
   `is_individual` tinyint(1) NOT NULL DEFAULT 1,
-  PRIMARY KEY (`id`)
+  PRIMARY KEY (`id`),
+  KEY `user_id` (`user_id`),
+  KEY `display_name` (`display_name`),
+  KEY `real_name` (`real_name`),
+  KEY `birthdate_utc` (`birthdate_utc`),
+  KEY `country_iso_code` (`country_iso_code`),
+  KEY `country` (`country`),
+  KEY `last_activity_utc` (`last_activity_utc`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -212,6 +251,21 @@ CREATE TABLE `subscriptions` (
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
+-- Table structure for table `user_groups`
+--
+
+DROP TABLE IF EXISTS `user_groups`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `user_groups` (
+  `user_id` bigint(11) unsigned NOT NULL,
+  `group` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '',
+  PRIMARY KEY (`user_id`,`group`),
+  KEY `group` (`group`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
 -- Table structure for table `users`
 --
 
@@ -221,12 +275,15 @@ DROP TABLE IF EXISTS `users`;
 CREATE TABLE `users` (
   `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
   `username` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT '',
-  `password` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT '',
+  `password` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `password_new` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `password_new_utc` datetime DEFAULT NULL,
   `email` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `email_confirmed` datetime DEFAULT NULL,
+  `email_token` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `email_backup` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `requires_pw_change` tinyint(1) NOT NULL DEFAULT 0,
   `invalid_attempts` int(11) NOT NULL DEFAULT 0,
-  `birthdate_utc` date DEFAULT NULL,
   `created_utc` datetime DEFAULT NULL,
   `banned_until_utc` datetime DEFAULT NULL,
   `ip_lock` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
@@ -235,7 +292,10 @@ CREATE TABLE `users` (
   `is_perm_banned` tinyint(1) NOT NULL DEFAULT 0,
   `is_ip_locked` tinyint(1) NOT NULL DEFAULT 0,
   `is_2fa_locked` tinyint(1) NOT NULL DEFAULT 0,
-  PRIMARY KEY (`id`)
+  PRIMARY KEY (`id`),
+  KEY `username` (`username`),
+  KEY `email` (`email`),
+  KEY `email_token` (`email_token`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -252,6 +312,7 @@ CREATE TABLE `video_groups` (
   `title` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `description` text COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `description_format` enum('txt','md','html') COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT 'txt',
+  `namespace` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `identifier` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `creator` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `language` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
@@ -260,7 +321,12 @@ CREATE TABLE `video_groups` (
   `is_created_by_bot` tinyint(1) NOT NULL DEFAULT 0,
   `is_playlist` tinyint(1) NOT NULL DEFAULT 0,
   `is_listed_on_home` tinyint(1) NOT NULL DEFAULT 0,
-  PRIMARY KEY (`id`)
+  PRIMARY KEY (`id`),
+  KEY `namespace` (`namespace`,`identifier`),
+  KEY `user_id` (`user_id`),
+  KEY `title` (`title`),
+  KEY `language` (`language`),
+  KEY `publication_utc` (`publication_utc`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -277,6 +343,7 @@ CREATE TABLE `videos` (
   `title` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `description` text COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `description_format` enum('txt','md','html') COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT 'txt',
+  `namespace` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `identifier` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `creator` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `language` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
@@ -293,8 +360,16 @@ CREATE TABLE `videos` (
   `is_hidden` tinyint(1) NOT NULL DEFAULT 0,
   `is_deleted` tinyint(1) NOT NULL DEFAULT 0,
   `is_uploaded_by_bot` tinyint(1) NOT NULL DEFAULT 0,
-  `is_std_copyright_license` tinyint(1) NOT NULL DEFAULT 0,
-  PRIMARY KEY (`id`)
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `namespace` (`namespace`,`identifier`),
+  KEY `user_id` (`user_id`),
+  KEY `title` (`title`),
+  KEY `language` (`language`),
+  KEY `copyright` (`copyright`),
+  KEY `publication_utc` (`publication_utc`),
+  KEY `visibility` (`visibility`),
+  KEY `classification` (`classification`),
+  KEY `ia_identifier` (`ia_identifier`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -307,4 +382,4 @@ CREATE TABLE `videos` (
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2019-07-11  0:48:54
+-- Dump completed on 2019-07-12 22:19:16
