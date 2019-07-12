@@ -13,7 +13,7 @@ fi
 script_dir=$(dirname "$(realpath $0)")
 migration=$script_dir"/../migrations/initial.sql"
 if [ ! -f $migration ]; then
-  echo 'Could not find `<repo root>/migrations/initial.sql`.'
+  echo 'Could not find migrations/initial.sql.'
   echo 'Canceled.'
   exit
 fi

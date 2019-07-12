@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 
 dbname="archivetube"
-echo 'This will overwrite the dev/test_rows.sql file.'
+echo 'This will overwrite the scripts/test_rows.sql file.'
 read -p 'Are you sure? ' -n 1 -r
 echo
 if [[ ! $REPLY =~ ^[Yy]$ ]]; then

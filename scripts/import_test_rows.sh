@@ -13,7 +13,7 @@ fi
 script_dir=$(dirname "$(realpath $0)")
 test_rows=$script_dir"/test_rows.sql"
 if [ ! -f $test_rows ]; then
-  echo 'Could not find `<repo root>/dev/test_rows.sql`.'
+  echo 'Could not find scripts/test_rows.sql.'
   echo 'Canceled.'
   exit
 fi
