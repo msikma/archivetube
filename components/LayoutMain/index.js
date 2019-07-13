@@ -6,6 +6,7 @@ import NavTop from '../NavTop'
 import SearchBar from '../SearchBar'
 import ButtonUpload from '../ButtonUpload'
 import MenuUser from '../MenuUser'
+import TestNav from '../TestNav'
 
 /** Layout wrapper for regular pages, such as home, profile, video, etc. */
 export default ({ children }) => (
@@ -14,6 +15,7 @@ export default ({ children }) => (
       <Logo />
       <SearchBar />
       <ButtonUpload />
+      <TestNav />
       <MenuUser />
     </NavTop>
     <div>
