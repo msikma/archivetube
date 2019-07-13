@@ -2,8 +2,10 @@
 // © MIT license
 
 import React from 'react'
+import Router from 'next/router'
 
 const links = [
+  ['/', 'Index'],
   ['/test/activity-log', 'Activity Log']
 ]
 
@@ -13,13 +15,13 @@ export default class TestNav extends React.Component {
   }
   handleChange = (value) => {
     this.setState({ value })
+    Router.push(value)
   }
   render() {
     const { value } = this.state
     return (
       <div>
         <select value={ value } onChange={ ev => this.handleChange(ev.target.value) }>
-          <option value="_">Test pages</option>
           { links.map((l, n) => (
             <option value={ l[0] } key={ n }>{ l[1] }</option>
           )) }

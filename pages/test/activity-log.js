@@ -3,17 +3,40 @@
 
 import React from 'react'
 
+import Head from 'next/head'
+import Link from 'next/link'
+import LayoutMain from '../../components/LayoutMain'
+import { apiReq } from '../../lib/db/req'
+import { queryPage } from '../../lib/pagination'
+import expandLog from '../../lib/activity'
+import { timeRel, timeDist } from '../../lib/time'
+
 export default class TestActivityLog extends React.Component {
   static async getInitialProps({ req, query }) {
-    return { a: 'a', b: 'b' }
+    return await apiReq(req, 'activity_logs', queryPage(query))
   }
 
   render() {
-    console.log('test', this.props)
+    const { meta, entities, entityCount } = this.props
     return (
-      <div>
+      <LayoutMain>
+        <Head>
+          <title>Hello test</title>
+        </Head>
+        { entities.map(entity => {
+          const entityMsg = expandLog(entity)
+          const timeR = timeRel(entity.timeUtc)
+          const timeD = timeDist(entity.timeUtc)
+          return (
+            <div key={ `log_${entity.id}` }>
+              <p>{ timeR }</p>
+              <p>{ timeD }</p>
+              <p>{ entityMsg }</p>
+            </div>
+          )
+        }) }
         <p>test</p>
-      </div>
+      </LayoutMain>
     )
   }
 }
