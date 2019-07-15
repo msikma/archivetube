@@ -13,16 +13,13 @@ import { timeRel, timeDist } from '../../lib/time'
 
 export default class TestActivityLog extends React.Component {
   static async getInitialProps({ req, query }) {
-    return await apiReq(req, 'activity_logs', queryPage(query))
+    return await apiReq(req, 'activity-logs', queryPage(query))
   }
 
   render() {
     const { meta, entities, entityCount } = this.props
     return (
-      <LayoutMain>
-        <Head>
-          <title>Hello test</title>
-        </Head>
+      <LayoutMain pageTitle="Activity logs test page">
         { entities.map(entity => {
           const entityMsg = expandLog(entity)
           const timeR = timeRel(entity.timeUtc)

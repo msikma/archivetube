@@ -1,25 +1,44 @@
 // ArchiveTube <https://github.com/msikma/archivetube>
 // © MIT license
 
+import Head from 'next/head'
+import styled from 'styled-components'
+
 import Logo from '../Logo'
 import NavTop from '../NavTop'
 import SearchBar from '../SearchBar'
 import ButtonUpload from '../ButtonUpload'
-import MenuUser from '../MenuUser'
+import MenuTop from '../MenuTop'
 import TestNav from '../TestNav'
 
+const LayoutMain = styled.div`
+  background: #f2eefb;
+`
+
+// Send half of the top menu to the right.
+const NavTopRight = styled.header`
+  justify-content: flex-end;
+`
+
 /** Layout wrapper for regular pages, such as home, profile, video, etc. */
-export default ({ children }) => (
-  <div>
+export default ({ children, pageTitle }) => (
+  <LayoutMain>
+    { pageTitle && (
+      <Head>
+        <title>{ pageTitle } - ArchiveTube</title>
+      </Head>
+    ) }
     <NavTop>
       <Logo />
-      <SearchBar />
-      <ButtonUpload />
-      <TestNav />
-      <MenuUser />
+      <NavTopRight>
+        <SearchBar />
+        <ButtonUpload />
+        <TestNav />
+        <MenuTop />
+      </NavTopRight>
     </NavTop>
-    <div>
+    <main>
       { children }
-    </div>
-  </div>
+    </main>
+  </LayoutMain>
 )

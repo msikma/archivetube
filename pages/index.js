@@ -11,7 +11,7 @@ import { queryPage } from '../lib/pagination'
 
 export default class IndexPage extends React.Component {
   static async getInitialProps({ req, query }) {
-    return await apiReq(req, 'activity-logs.js', queryPage(query.page, query.limit))
+    return await apiReq(req, 'activity-logs', queryPage(query.page, query.limit))
   }
 
   render() {
