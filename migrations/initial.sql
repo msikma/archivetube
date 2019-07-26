@@ -1,4 +1,4 @@
--- MariaDB dump 10.17  Distrib 10.4.6-MariaDB, for osx10.13 (x86_64)
+-- MariaDB dump 10.17  Distrib 10.4.6-MariaDB, for osx10.14 (x86_64)
 --
 -- Host: localhost    Database: archivetube
 -- ------------------------------------------------------
@@ -360,6 +360,7 @@ CREATE TABLE `videos` (
   `is_hidden` tinyint(1) NOT NULL DEFAULT 0,
   `is_deleted` tinyint(1) NOT NULL DEFAULT 0,
   `is_uploaded_by_bot` tinyint(1) NOT NULL DEFAULT 0,
+  `is_static_content` tinyint(1) NOT NULL DEFAULT 0,
   PRIMARY KEY (`id`),
   UNIQUE KEY `namespace` (`namespace`,`identifier`),
   KEY `user_id` (`user_id`),
@@ -382,4 +383,4 @@ CREATE TABLE `videos` (
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2019-07-12 22:19:16
+-- Dump completed on 2019-07-26 16:14:49
